@@ -1,14 +1,15 @@
 import React from "react";
 import Navbar from "../components/navbar/Navbar";
+import RouteCombiner from "../router/RouteCombiner";
 
-const MainLayout = ({ children }) => {
+const MainLayout = () => {
   return (
-    <>
+    <div>
+      <Navbar />
       <div>
-        <Navbar />
+        <RouteCombiner />
       </div>
-      <main>{children}</main>
-    </>
+    </div>
   );
 };
 
