@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import routes from "./routes";
 
@@ -9,6 +9,7 @@ const RouteCombiner = () => {
 
   return (
     <>
+    <Suspense>
       <Routes>
         {routes.map((route, index) => {
           return (
@@ -22,6 +23,7 @@ const RouteCombiner = () => {
           );
         })}
       </Routes>
+      </Suspense>
     </>
   );
 };
