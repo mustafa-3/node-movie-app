@@ -1,9 +1,7 @@
 const express = require("express");
-
 const indexRouter = require("./routes/index");
 const app = express();
 const sequelize = require("./db/index");
-require("dotenv").config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
