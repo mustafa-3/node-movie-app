@@ -1,11 +1,11 @@
 const Sequelize = require("sequelize");
 
-const sequelize = require("../index");
+const sequelize = require("../../db/index");
 
 const Movie = sequelize.define("movie", {
   id: {
     type: Sequelize.INTEGER,
-    allowNull: true
+    allowNull: true,
     autoIncrement: true,
     primaryKey: true,
   },

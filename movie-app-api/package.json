@@ -99,7 +99,7 @@
     "semver": "^5.7.1",
     "send": "^0.18.0",
     "seq-queue": "^0.0.5",
-    "sequelize": "^6.29.0",
+    "sequelize": "^6.29.1",
     "sequelize-pool": "^7.1.0",
     "serve-static": "^1.15.0",
     "setprototypeof": "^1.2.0",

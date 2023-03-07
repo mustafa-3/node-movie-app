@@ -17,12 +17,8 @@ const sequelize = new Sequelize(
     },
   }
 );
-// const sequelize = new Sequelize("nodemoviedb", "root", "Nfy1412!", {
-//   host: "localhost",
-//   dialect: "mysql",
-// });
 
-const connect = async (dbName ) => {
+const connect = async (dbName) => {
   try {
     await sequelize.authenticate();
     console.log(
@@ -34,6 +30,15 @@ const connect = async (dbName ) => {
   }
 };
 
+const syncDb = async () => {
+  try {
+    await sequelize.sync({ force: false });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 connect("nodemoviedb");
+syncDb();
 
 module.exports = sequelize;
