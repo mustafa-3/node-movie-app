@@ -9,6 +9,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -31,13 +34,24 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function AddMovie() {
-  const handleSubmit = (event) => {
+  const [form, setForm] = useState({
+    title: "",
+    desc: "",
+    detailDesc: "",
+    year: "",
+    imageUrl: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    try {
+      await axios.post("http://localhost:5000/api/movies", form);
+      navigate("/")
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -73,6 +87,8 @@ export default function AddMovie() {
               name="title"
               type="text"
               autoFocus
+              value={form.title}
+              onChange={(e) => setForm({ ...form, title: e.target.value })}
             />
             <TextField
               margin="normal"
@@ -82,6 +98,8 @@ export default function AddMovie() {
               label="year"
               name="year"
               type="text"
+              value={form.year}
+              onChange={(e) => setForm({ ...form, year: e.target.value })}
             />
             <TextField
               margin="normal"
@@ -91,6 +109,8 @@ export default function AddMovie() {
               label="desc"
               name="desc"
               type="text"
+              value={form.desc}
+              onChange={(e) => setForm({ ...form, desc: e.target.value })}
             />
             <TextField
               margin="normal"
@@ -100,6 +120,8 @@ export default function AddMovie() {
               label="detailDesc"
               name="detailDesc"
               type="text"
+              value={form.detailDesc}
+              onChange={(e) => setForm({ ...form, detailDesc: e.target.value })}
             />
             <TextField
               margin="normal"
@@ -109,6 +131,8 @@ export default function AddMovie() {
               label="imageUrl"
               name="imageUrl"
               type="text"
+              value={form.imageUrl}
+              onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
             />
             <Button
               type="submit"

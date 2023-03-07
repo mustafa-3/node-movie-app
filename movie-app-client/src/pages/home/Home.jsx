@@ -1,19 +1,33 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-// const movies = useSelector((state) => state.movie)
-const { movies } = useSelector((state) => state.movie);
-// console.log(movies);
-movies.map((item, index) => {
-  return(
-    console.log(item)
-  )
-})
+  // const movies = useSelector((state) => state.movie)
+  // const { movies } = useSelector((state) => state.movie);
+  // console.log(movies);
+  // movies.map((item, index) => {
+  //   return(
+  //     console.log(item)
+  //   )
+  // })
+  const [movieData, setMovieData] = useState([]);
+  const FEATURED_APİ = `http://localhost:5000/api/movies`;
 
-  return (
-    <div>Home</div>
-  )
-}
+  const getData = (API) => {
+    fetch(API)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setMovieData(data);
+      })
+      .catch((err) => console.log(err));
+  };
 
-export default Home
+  useEffect(() => {
+    getData(FEATURED_APİ);
+  }, []);
+
+  return <div>Home</div>;
+};
+
+export default Home;
