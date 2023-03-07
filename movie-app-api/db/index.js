@@ -32,7 +32,7 @@ const connect = async (dbName) => {
 
 const syncDb = async () => {
   try {
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ force: true });
   } catch (error) {
     console.log(error);
   }

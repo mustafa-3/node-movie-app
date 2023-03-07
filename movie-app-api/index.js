@@ -1,12 +1,15 @@
 const express = require("express");
+
+const indexRouter = require("./routes/index");
 const app = express();
 const sequelize = require("./db/index");
 require("dotenv").config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/api", indexRouter);
 
-const Movie = require("./db/models/movie");
+// const Movie = require("./db/models/movie");
 const port = 5000;
 
 app.listen(port, (req, res) => {
@@ -15,7 +18,7 @@ app.listen(port, (req, res) => {
 
 // const syncDb = async () => {
 //   try {
-//     await sequelize.sync({ force: false });
+//     await sequelize.sync({ force: true });
 //   } catch (error) {
 //     console.log(error);
 //   }
