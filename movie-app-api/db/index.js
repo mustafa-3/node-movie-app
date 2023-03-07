@@ -22,15 +22,18 @@ const sequelize = new Sequelize(
 //   dialect: "mysql",
 // });
 
-const connect = async () => {
+const connect = async (dbName ) => {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
+    console.log(
+      `Connection to ${dbName} established successfully.`,
+      new Date()
+    );
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    console.error(`Unable to connect to the ${dbName}:`, error);
   }
 };
 
-connect();
+connect("nodemoviedb");
 
 module.exports = sequelize;
