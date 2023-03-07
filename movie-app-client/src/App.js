@@ -30,7 +30,7 @@ const App = () => {
           }
         />
         <Route
-          path="*"
+          path={"*"}
           element={
             <PublicRouter>
               <MainLayout />

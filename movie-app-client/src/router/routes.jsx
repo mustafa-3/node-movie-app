@@ -22,6 +22,13 @@ const routes = [
     roles: roles.public,
   },
   {
+    path: "/home",
+    name: "Home",
+    element: Home,
+    exact: true,
+    roles: roles.public,
+  },
+  {
     path: "/login",
     name: "Login",
     element: Login,
