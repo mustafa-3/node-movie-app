@@ -15,11 +15,13 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const drawerWidth = 240;
 const navItems = ["Home", "Add-Movie", "Login", "Register"];
 
 function DrawerAppBar(props) {
+  const [edit, setEdit] = useState({ isEdit: false });
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -27,7 +29,7 @@ function DrawerAppBar(props) {
     setMobileOpen((prevState) => !prevState);
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -73,7 +75,15 @@ function DrawerAppBar(props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button onClick={() => navigate(`/${item}`.toLowerCase())} key={item} sx={{ color: "#fff" }}>
+              <Button
+                onClick={() =>
+                  navigate(`/${item}`.toLowerCase(), {
+                    state: { edit: edit, id: null },
+                  })
+                }
+                key={item}
+                sx={{ color: "#fff" }}
+              >
                 {item}
               </Button>
             ))}
@@ -100,7 +110,7 @@ function DrawerAppBar(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ p: 3, m:1 }}></Box>
+      <Box component="main" sx={{ p: 3, m: 1 }}></Box>
     </Box>
   );
 }

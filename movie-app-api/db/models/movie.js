@@ -22,7 +22,7 @@ const Movie = sequelize.define("movie", {
     allowNull: true
   },
   detailDesc: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: true
   },
   imageUrl: {

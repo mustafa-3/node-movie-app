@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Copyright(props) {
@@ -34,6 +34,9 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function AddMovie() {
+  const { state } = useLocation();
+  const { edit, id } = state;
+  // console.log(state);
   const [form, setForm] = useState({
     title: "",
     desc: "",
@@ -48,15 +51,20 @@ export default function AddMovie() {
     event.preventDefault();
     try {
       await axios.post("http://localhost:5000/api/movies", form);
-      navigate("/")
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
+    console.log("create açıldı");
+  };
+  const handleEdit = async (event) => {
+    event.preventDefault();
+    console.log("edit açıldı");
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xl">
+      <Container component="main" maxWidth="md">
         <CssBaseline />
         <Box
           sx={{
@@ -70,11 +78,11 @@ export default function AddMovie() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            New Movie
+            {edit?.isEdit ? "UpdateMovie" : "NewMovie"}
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={edit?.isEdit ? handleEdit : handleSubmit}
             noValidate
             sx={{ mt: 1 }}
           >
@@ -140,7 +148,7 @@ export default function AddMovie() {
               variant="contained"
               sx={{ mt: 2, mb: 2 }}
             >
-              Add Movie
+              {edit.isEdit ? "Update Movie" : "Add Movie"}
             </Button>
           </Box>
         </Box>

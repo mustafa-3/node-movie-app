@@ -56,13 +56,6 @@ const routes = [
     exact: true,
     roles: roles.admin,
   },
-  {
-    path: "/edit-movie",
-    name: "EditMovie",
-    element: EditMovie,
-    exact: true,
-    roles: roles.admin,
-  },
 ];
 
 export default routes;
