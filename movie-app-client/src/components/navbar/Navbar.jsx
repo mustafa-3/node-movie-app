@@ -78,7 +78,7 @@ function DrawerAppBar(props) {
               <Button
                 onClick={() =>
                   navigate(`/${item}`.toLowerCase(), {
-                    state: { edit: edit, id: null },
+                    state: { edit: edit },
                   })
                 }
                 key={item}

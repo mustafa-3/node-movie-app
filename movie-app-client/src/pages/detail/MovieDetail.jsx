@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import Container from "@mui/material/Container";
+import axios from "axios";
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -33,6 +34,15 @@ const MovieDetail = () => {
 
   const navigate = useNavigate();
 
+  const handleDelete = async() => {
+    try {
+      await axios.delete(`http://localhost:5000/api/movies/${id}`)
+      navigate("/")
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Container sx={{ marginTop: "10px", marginBottom: "10px" }} maxWidth="md">
       <Card>
@@ -54,10 +64,12 @@ const MovieDetail = () => {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-          <Button size="small">Delete Movie</Button>
+          <Button onClick={handleDelete} size="small">Delete Movie</Button>
           <Button
             onClick={() =>
-              navigate(`/add-movie`, { state: { edit: edit, id: id } })
+              // navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
+              navigate(`/edit-movie/${id}`, { state: { edit: edit, id:id } })
+              // navigate(`/edit-movie/${id}`, { state: { edit: edit } })
             }
             size="small"
           >

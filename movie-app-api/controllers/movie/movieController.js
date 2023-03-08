@@ -43,6 +43,7 @@ exports.createMovie = async (req, res) => {
 
 exports.deleteMovie = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
   const movie = await Movie.findByPk(id);
   if (!movie) {
     return res.status(400).json({
@@ -59,7 +60,10 @@ exports.deleteMovie = async (req, res) => {
 };
 exports.updateMovie = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
   const { title, year, desc, detailDesc, imageUrl } = req.body;
+  // const { title, year, desc, detailDesc, imageUrl } = req.body;
+  console.log(title);
   let movie = await Movie.findByPk(id);
   if (!movie) {
     return res.status(400).json({

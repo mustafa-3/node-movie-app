@@ -36,9 +36,10 @@ const Home = () => {
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    getData(FEATURED_APİ);
-  }, []);
+useEffect(() => {
+  getData(FEATURED_APİ)
+
+}, [])
 
   const { data } = movieData;
 
@@ -50,8 +51,8 @@ const Home = () => {
         {data?.map((item, index) => {
           return (
             <Grid key={index} xs={4}>
-              <Item sx={{display:"flex", justifyContent:"center"}}>
-                <MovieCard data={item}  />
+              <Item sx={{ display: "flex", justifyContent: "center" }}>
+                <MovieCard data={item} />
               </Item>
             </Grid>
           );

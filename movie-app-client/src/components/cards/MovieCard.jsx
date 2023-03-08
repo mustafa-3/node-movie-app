@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 export default function MovieCard({ data }) {
   // console.log(data);
@@ -14,6 +15,14 @@ export default function MovieCard({ data }) {
   const [edit, setEdit] = useState({ isEdit: true });
 
   const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/api/movies/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -26,15 +35,19 @@ export default function MovieCard({ data }) {
           {desc}
         </Typography>
       </CardContent>
-      <CardActions sx={{display:"flex", justifyContent:"center"}}>
-        <Button size="small">Delete</Button>
+      <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+        <Button onClick={handleDelete} size="small">
+          Delete
+        </Button>
         <Button size="small" onClick={() => navigate(`/details/${id}`)}>
           Details
         </Button>
         <Button
           size="small"
           onClick={() =>
-            navigate(`/add-movie`, { state: { edit: edit, id: id } })
+            // navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
+            navigate(`/edit-movie/${id}`, { state: { edit: edit,id:id  } })
+            // navigate(`/add-movie/${id}`, { state: { edit: edit } })
           }
         >
           Edit

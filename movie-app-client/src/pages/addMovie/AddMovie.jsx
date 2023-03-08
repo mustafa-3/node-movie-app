@@ -12,6 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useEffect } from "react";
 
 function Copyright(props) {
   return (
@@ -37,13 +38,26 @@ export default function AddMovie() {
   const { state } = useLocation();
   const { edit, id } = state;
   // console.log(state);
+  const api = `http://localhost:5000/api/movies/${id}`;
   const [form, setForm] = useState({
     title: "",
     desc: "",
     detailDesc: "",
     year: "",
     imageUrl: "",
+    // id: id,
   });
+
+  const getData = () => {
+    fetch(api)
+      .then((res) => res.json())
+      .then((data) => setForm(data.data))
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    edit.isEdit && getData();
+  }, []);
 
   const navigate = useNavigate();
 
@@ -59,7 +73,12 @@ export default function AddMovie() {
   };
   const handleEdit = async (event) => {
     event.preventDefault();
-    console.log("edit açıldı");
+    try {
+      await axios.put(`http://localhost:5000/api/movies/${id}`, form);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

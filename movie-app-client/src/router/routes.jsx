@@ -56,6 +56,20 @@ const routes = [
     exact: true,
     roles: roles.admin,
   },
+  // {
+  //   path: "/add-movie/:id",
+  //   name: "AddMovie",
+  //   element: AddMovie,
+  //   exact: true,
+  //   roles: roles.admin,
+  // },
+  {
+    path: "/edit-movie/:id",
+    name: "EditMovie",
+    element: AddMovie,
+    exact: true,
+    roles: roles.admin,
+  },
 ];
 
 export default routes;
