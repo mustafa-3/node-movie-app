@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MovieCard from "../../components/cards/MovieCard";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
+import { getMovies } from "../../services/movie/movieSlice";
 
 const Home = () => {
   // const movies = useSelector((state) => state.movie)
@@ -15,6 +16,12 @@ const Home = () => {
   //     console.log(item)
   //   )
   // })
+
+  const dispatch = useDispatch();
+
+  const { movieData } = useSelector((state) => state.movie);
+  const { data } = movieData;
+  console.log(data);
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -23,27 +30,29 @@ const Home = () => {
     color: theme.palette.text.secondary,
   }));
 
-  const [movieData, setMovieData] = useState([]);
-  const FEATURED_APİ = `http://localhost:5000/api/movies`;
+  //   const [movieData, setMovieData] = useState([]);
+  //   const FEATURED_APİ = `http://localhost:5000/api/movies`;
 
-  const getData = (API) => {
-    fetch(API)
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        setMovieData(data);
-      })
-      .catch((err) => console.log(err));
-  };
+  //   const getData = (API) => {
+  //     fetch(API)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setMovieData(data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   };
 
-useEffect(() => {
-  getData(FEATURED_APİ)
+  // useEffect(() => {
+  //   getData(FEATURED_APİ)
 
-}, [])
+  // }, [])
 
-  const { data } = movieData;
+  //   const { data } = movieData;
 
   // console.log(data);
+  useEffect(() => {
+    dispatch(getMovies());
+  }, []);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
