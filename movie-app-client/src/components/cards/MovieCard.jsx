@@ -18,9 +18,11 @@ export default function MovieCard({ data }) {
   //Hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   //States
   const [edit, setEdit] = useState({ isEdit: true });
   const { title, desc, imageUrl, id } = data;
+  
   //Handlers
   const handleDelete = async () => {
     dispatch(deleteMovie({ id: id }));

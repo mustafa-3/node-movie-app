@@ -23,6 +23,7 @@ import Button from "@mui/material/Button";
 function DrawerAppBar(props) {
   //Hooks
   const navigate = useNavigate();
+
   //States
   const drawerWidth = 240;
   const navItems = ["Home", "Add-Movie", "Login", "Register"];
@@ -31,10 +32,12 @@ function DrawerAppBar(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
   //Functions
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -52,7 +55,6 @@ function DrawerAppBar(props) {
       </List>
     </Box>
   );
-  //Handlers
 
   return (
     <Box sx={{ display: "flex" }}>

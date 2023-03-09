@@ -14,6 +14,7 @@ import MovieCard from "../../components/cards/MovieCard";
 const Home = () => {
   //Hooks
   const dispatch = useDispatch();
+
   //Redux
   const { moviesData } = useSelector((state) => state.movie);
   const { data } = moviesData;

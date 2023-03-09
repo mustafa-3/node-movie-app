@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //Redux
-import { getMovie } from "../../services/movie/movieSlice";
+import { deleteMovie, getMovie } from "../../services/movie/movieSlice";
 //3rd Party
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -21,24 +21,23 @@ const MovieDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   //Redux
   const { movieData } = useSelector((state) => state.movie);
   const { detailDesc, title, year, imageUrl } = movieData;
+
   //States
   const [edit, setEdit] = useState({ isEdit: true });
+
   //Effects
   useEffect(() => {
     dispatch(getMovie({ id: id }));
   }, []);
-
+  
   //Handlers
   const handleDelete = async () => {
-    try {
-      await axios.delete(`http://localhost:5000/api/movies/${id}`);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(deleteMovie({ id: id }));
+    navigate("/");
   };
 
   return (

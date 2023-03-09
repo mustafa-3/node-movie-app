@@ -27,8 +27,10 @@ export default function AddMovie() {
   const { state } = useLocation();
   const { edit, id } = state;
   const navigate = useNavigate();
+
   //Redux
   const { movieData } = useSelector((state) => state.movie);
+
   //States
   const [form, setForm] = useState({
     // title: "",
@@ -38,6 +40,7 @@ export default function AddMovie() {
     // imageUrl: "",
     // id: id,
   });
+  
   //Effects
   useEffect(() => {
     dispatch(getMovie({ id: id }));
