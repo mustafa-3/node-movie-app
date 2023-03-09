@@ -1,27 +1,37 @@
+//React
 import * as React from "react";
+//Hooks
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+//Redux
+import { useDispatch } from "react-redux";
+import { deleteMovie } from "../../services/movie/movieSlice";
+//3rd Party
+import axios from "axios";
+//Utils
+//Components
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { deleteMovie } from "../../services/movie/movieSlice";
 
 export default function MovieCard({ data }) {
+  //Hooks
   const dispatch = useDispatch();
-  // console.log(data);
-  const { title, desc, imageUrl, year, id } = data;
-  const [edit, setEdit] = useState({ isEdit: true });
-
   const navigate = useNavigate();
-
+  //Redux
+  //States
+  const [edit, setEdit] = useState({ isEdit: true });
+  //Effects
+  //Functions
+  //Handlers
   const handleDelete = async () => {
-    dispatch(deleteMovie({id:id}));
+    dispatch(deleteMovie({ id: id }));
   };
+
+  const { title, desc, imageUrl, year, id } = data;
 
   return (
     <Card sx={{ maxWidth: 345 }}>

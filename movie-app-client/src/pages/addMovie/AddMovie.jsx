@@ -1,4 +1,16 @@
+//React
 import * as React from "react";
+//Hooks
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+//Redux
+import {
+  createMovie,
+  getMovie,
+  updateMovie,
+} from "../../services/movie/movieSlice";
+//3rd Party
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,44 +21,68 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { createMovie, updateMovie } from "../../services/movie/movieSlice";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const theme = createTheme();
 
 export default function AddMovie() {
+  //Hooks
   const dispatch = useDispatch();
   const { state } = useLocation();
   const { edit, id } = state;
-
+  const navigate = useNavigate();
+  //Redux
+  const { movieData } = useSelector((state) => state.movie);
+  //States
   const [form, setForm] = useState({
-    title: "",
-    desc: "",
-    detailDesc: "",
-    year: "",
-    imageUrl: "",
+    // title: "",
+    // desc: "",
+    // detailDesc: "",
+    // year: "",
+    // imageUrl: "",
     // id: id,
   });
+  //Effects
+  useEffect(() => {
+    dispatch(getMovie({ id: id }));
+    console.log(movieData);
+    setForm({
+      title: movieData.title,
+      desc: movieData.desc,
+      detailDesc: movieData.detailDesc,
+      year: movieData.year,
+      imageUrl: movieData.imageUrl,
+    });
+  }, []);
+
+  //Functions
+  const theme = createTheme();
+  function Copyright(props) {
+    return (
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        {...props}
+      >
+        {"Copyright © "}
+        <Link color="inherit" href="https://mui.com/">
+          Your Website
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+    );
+  }
+
+  //Handlers
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(createMovie(form));
+    navigate("/");
+  };
+
+  const handleEdit = () => {
+    dispatch(updateMovie({ form: form, id: id }));
+    navigate("/");
+  };
 
   // const getData = () => {
   //   fetch(api)
@@ -58,19 +94,6 @@ export default function AddMovie() {
   // useEffect(() => {
   //   edit.isEdit && getData();
   // }, []);
-
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    dispatch(createMovie(form));
-    navigate("/");
-  };
-
-  const handleEdit = () => {
-    dispatch(updateMovie({ form: form, id: id }));
-    navigate("/");
-  };
 
   return (
     <ThemeProvider theme={theme}>

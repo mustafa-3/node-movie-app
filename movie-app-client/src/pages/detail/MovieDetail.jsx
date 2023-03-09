@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
+//React
+import React from "react";
+//Hooks
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+//Redux
+import { getMovie } from "../../services/movie/movieSlice";
+//3rd Party
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -8,25 +15,23 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { getMovie } from "../../services/movie/movieSlice";
 
 const MovieDetail = () => {
+  //Hooks
   const { id } = useParams();
-  const { movieData } = useSelector((state) => state.movie);
-  const [edit, setEdit] = useState({ isEdit: true });
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  //Redux
+  const { movieData } = useSelector((state) => state.movie);
+  const { detailDesc, title, year, imageUrl } = movieData;
+  //States
+  const [edit, setEdit] = useState({ isEdit: true });
+  //Effects
   useEffect(() => {
     dispatch(getMovie({ id: id }));
   }, []);
 
-  // console.log(movieData);
-  const { detailDesc, title, year, imageUrl } = movieData;
-  // console.log(movieData);
-
-  const navigate = useNavigate();
-
+  //Handlers
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:5000/api/movies/${id}`);

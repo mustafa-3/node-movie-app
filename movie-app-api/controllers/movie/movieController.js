@@ -26,7 +26,6 @@ exports.getMovie = async (req, res) => {
 };
 exports.createMovie = async (req, res) => {
   const { title, year, desc, detailDesc, imageUrl } = req.body;
-  // console.log(year);
   const movie = await Movie.create({
     title: title,
     year: year,

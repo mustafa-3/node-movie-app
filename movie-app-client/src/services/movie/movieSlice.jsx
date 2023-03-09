@@ -13,7 +13,7 @@ export const getAllMovies = createAsyncThunk(
     try {
       const resp = await axios.get(`http://localhost:5000/api/movies`);
       if (resp.status === 200) {
-        toastSuccessNotify(resp.data.message);
+        // toastSuccessNotify(resp.data.message);
         return resp.data;
       }
     } catch (error) {
@@ -30,7 +30,7 @@ export const getMovie = createAsyncThunk(
     try {
       const resp = await axios.get(`http://localhost:5000/api/movies/${id}`);
       if (resp.status === 200) {
-        toastSuccessNotify(resp.data.message);
+        // toastSuccessNotify(resp.data.message);
         return resp.data.data;
       }
     } catch (error) {
@@ -46,7 +46,7 @@ export const createMovie = createAsyncThunk(
     try {
       const resp = await axios.post(`http://localhost:5000/api/movies`, data);
       if (resp.status === 200) {
-        toastSuccessNotify(resp.data.message);
+        // toastSuccessNotify(resp.data.message);
         return resp.data;
       }
     } catch (error) {
@@ -66,7 +66,7 @@ export const updateMovie = createAsyncThunk(
         form
       );
       if (resp.status === 200) {
-        toastSuccessNotify(resp.data.message);
+        // toastSuccessNotify(resp.data.message);
         return resp.data;
       }
     } catch (error) {
@@ -83,7 +83,7 @@ export const deleteMovie = createAsyncThunk(
     try {
       const resp = await axios.delete(`http://localhost:5000/api/movies/${id}`);
       if (resp.status === 200) {
-        toastSuccessNotify(resp.data.message);
+        // toastSuccessNotify(resp.data.message);
         return resp.data;
       }
     } catch (error) {
@@ -122,6 +122,12 @@ const movieSlice = createSlice({
     },
     [createMovie.rejected]: (state, action) => {
       state.loading = false;
+    },
+    [deleteMovie.fulfilled]: (state, action) => {
+      state.moviesData = action.payload;
+    },
+    [updateMovie.fulfilled]: (state, action) => {
+      state.movieData = action.payload;
     },
   },
 });

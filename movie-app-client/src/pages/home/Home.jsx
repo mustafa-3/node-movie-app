@@ -1,17 +1,29 @@
+//React
 import React, { useEffect } from "react";
+//Hooks
 import { useSelector, useDispatch } from "react-redux";
-import MovieCard from "../../components/cards/MovieCard";
+//Redux
+import { getAllMovies } from "../../services/movie/movieSlice";
+//3rd Party
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
-import { getAllMovies } from "../../services/movie/movieSlice";
+import MovieCard from "../../components/cards/MovieCard";
 
 const Home = () => {
+  //Hooks
   const dispatch = useDispatch();
+  //Redux
   const { moviesData } = useSelector((state) => state.movie);
   const { data } = moviesData;
 
+  //Effects
+  useEffect(() => {
+    dispatch(getAllMovies());
+  }, [dispatch]);
+
+  //Functions
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -19,10 +31,6 @@ const Home = () => {
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
-
-  useEffect(() => {
-    dispatch(getAllMovies());
-  }, [dispatch]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
