@@ -8,8 +8,11 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { deleteMovie } from "../../services/movie/movieSlice";
 
 export default function MovieCard({ data }) {
+  const dispatch = useDispatch();
   // console.log(data);
   const { title, desc, imageUrl, year, id } = data;
   const [edit, setEdit] = useState({ isEdit: true });
@@ -17,16 +20,17 @@ export default function MovieCard({ data }) {
   const navigate = useNavigate();
 
   const handleDelete = async () => {
-    try {
-      await axios.delete(`http://localhost:5000/api/movies/${id}`);
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(deleteMovie({id:id}));
   };
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia sx={{ height: 140 }} image={imageUrl} title="green iguana" />
+      <CardMedia
+        component={"img"}
+        sx={{ height: 140 }}
+        image={imageUrl}
+        title="green iguana"
+      />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}
@@ -44,9 +48,10 @@ export default function MovieCard({ data }) {
         </Button>
         <Button
           size="small"
-          onClick={() =>
-            // navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
-            navigate(`/edit-movie/${id}`, { state: { edit: edit,id:id  } })
+          onClick={
+            () =>
+              // navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
+              navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
             // navigate(`/add-movie/${id}`, { state: { edit: edit } })
           }
         >

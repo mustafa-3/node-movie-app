@@ -2,14 +2,72 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
+  moviesData: [],
   movieData: [],
 };
 
-export const getMovies = createAsyncThunk(
+export const getAllMovies = createAsyncThunk(
   "api/movies",
   async (data, thunkAPI) => {
     try {
       const resp = await axios.get(`http://localhost:5000/api/movies`);
+      return resp.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Something went wrong");
+    }
+  }
+);
+
+export const getMovie = createAsyncThunk(
+  "/api/movies/:id",
+  async (data, thunkAPI) => {
+    // console.log(data);
+    const { id } = data;
+    try {
+      const resp = await axios.get(`http://localhost:5000/api/movies/${id}`);
+      // console.log(resp.data);
+      return resp.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Somethig went wrong");
+    }
+  }
+);
+
+export const createMovie = createAsyncThunk(
+  "api/movies",
+  async (data, thunkAPI) => {
+    try {
+      const resp = await axios.post(`http://localhost:5000/api/movies`, data);
+      return resp.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Something went wrong");
+    }
+  }
+);
+
+export const updateMovie = createAsyncThunk(
+  "/api/movies/:id",
+  async (data, thunkAPI) => {
+    const { form, id } = data;
+    // console.log(form);
+    try {
+      const resp = await axios.put(
+        `http://localhost:5000/api/movies/${id}`,
+        form
+      );
+      return resp.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue("Something went wrong");
+    }
+  }
+);
+
+export const deleteMovie = createAsyncThunk(
+  "api/movies/:id",
+  async (data, thunkAPI) => {
+    const { id } = data;
+    try {
+      const resp = await axios.delete(`http://localhost:5000/api/movies/${id}`);
       return resp.data;
     } catch (error) {
       return thunkAPI.rejectWithValue("Something went wrong");
@@ -22,9 +80,29 @@ const movieSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [getMovies.fulfilled]: (state, action) => {
+    [getAllMovies.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getAllMovies.fulfilled]: (state, action) => {
+      state.moviesData = action.payload;
+      state.loading = false;
+    },
+    [getAllMovies.rejected]: (state, action) => {
+      state.loading = false;
+    },
+    [getMovie.fulfilled]: (state, action) => {
       state.movieData = action.payload;
     },
+    // [createMovie.pending]: (state, action) => {
+    //   state.loading = true;
+    // },
+    // [createMovie.fulfilled]: (state, action) => {
+    //   state.createForm = action.payload;
+    //   state.loading = false;
+    // },
+    // [createMovie.rejected]: (state, action) => {
+    //   state.loading = false;
+    // },
   },
 });
 

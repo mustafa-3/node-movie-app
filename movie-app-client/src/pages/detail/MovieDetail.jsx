@@ -6,42 +6,33 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-
 import Container from "@mui/material/Container";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getMovie } from "../../services/movie/movieSlice";
 
 const MovieDetail = () => {
   const { id } = useParams();
-
+  const { movieData } = useSelector((state) => state.movie);
   const [edit, setEdit] = useState({ isEdit: true });
-  const [movieData, setMovieData] = useState([]);
-  const FEATURED_APİ = `http://localhost:5000/api/movies/${id}`;
-
-  const getData = (API) => {
-    fetch(API)
-      .then((res) => res.json())
-      .then((data) => {
-        setMovieData(data?.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getData(FEATURED_APİ);
+    dispatch(getMovie({ id: id }));
   }, []);
-
+  console.log(movieData);
   const { detailDesc, title, year, imageUrl } = movieData;
 
   const navigate = useNavigate();
 
-  const handleDelete = async() => {
+  const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/movies/${id}`)
-      navigate("/")
+      await axios.delete(`http://localhost:5000/api/movies/${id}`);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <Container sx={{ marginTop: "10px", marginBottom: "10px" }} maxWidth="md">
@@ -53,10 +44,20 @@ const MovieDetail = () => {
           component="img"
         />
         <CardContent>
-          <Typography sx={{textAlign:"center"}} gutterBottom variant="h5" component="div">
+          <Typography
+            sx={{ textAlign: "center" }}
+            gutterBottom
+            variant="h5"
+            component="div"
+          >
             {title}
           </Typography>
-          <Typography sx={{textAlign:"center"}} gutterBottom variant="h5" component="div">
+          <Typography
+            sx={{ textAlign: "center" }}
+            gutterBottom
+            variant="h5"
+            component="div"
+          >
             {year}
           </Typography>
           <Typography variant="body2" color="text.secondary">
@@ -64,11 +65,14 @@ const MovieDetail = () => {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-          <Button onClick={handleDelete} size="small">Delete Movie</Button>
+          <Button onClick={handleDelete} size="small">
+            Delete Movie
+          </Button>
           <Button
-            onClick={() =>
-              // navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
-              navigate(`/edit-movie/${id}`, { state: { edit: edit, id:id } })
+            onClick={
+              () =>
+                // navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
+                navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
               // navigate(`/edit-movie/${id}`, { state: { edit: edit } })
             }
             size="small"
