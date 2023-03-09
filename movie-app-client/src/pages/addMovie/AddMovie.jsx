@@ -14,13 +14,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  createMovie,
-  getMovie,
-  updateMovie,
-} from "../../services/movie/movieSlice";
-
-// import { createMovie } from "../../services/movie/movieSlice";
+import { createMovie, updateMovie } from "../../services/movie/movieSlice";
 
 function Copyright(props) {
   return (
@@ -46,8 +40,6 @@ export default function AddMovie() {
   const dispatch = useDispatch();
   const { state } = useLocation();
   const { edit, id } = state;
-  const { movieData } = useSelector((state) => state.movie);
-  // console.log(state);
   const api = `http://localhost:5000/api/movies/${id}`;
   const [form, setForm] = useState({
     title: "",
@@ -57,10 +49,6 @@ export default function AddMovie() {
     imageUrl: "",
     // id: id,
   });
-
-  useEffect(() => {
-    dispatch(getMovie({ id: id }));
-  }, []);
 
   // const getData = () => {
   //   fetch(api)
@@ -79,16 +67,6 @@ export default function AddMovie() {
     event.preventDefault();
     dispatch(createMovie(form));
   };
-
-  // const handleEdit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     await axios.put(`http://localhost:5000/api/movies/${id}`, form);
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const handleEdit = () => {
     dispatch(updateMovie({ form: form, id: id }));
@@ -116,7 +94,6 @@ export default function AddMovie() {
           <Box
             component="form"
             onSubmit={edit?.isEdit ? handleEdit : handleSubmit}
-            // onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}
           >

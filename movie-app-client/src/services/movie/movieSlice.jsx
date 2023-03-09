@@ -21,11 +21,9 @@ export const getAllMovies = createAsyncThunk(
 export const getMovie = createAsyncThunk(
   "/api/movies/:id",
   async (data, thunkAPI) => {
-    // console.log(data);
     const { id } = data;
     try {
       const resp = await axios.get(`http://localhost:5000/api/movies/${id}`);
-      // console.log(resp.data);
       return resp.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue("Somethig went wrong");
@@ -49,7 +47,6 @@ export const updateMovie = createAsyncThunk(
   "/api/movies/:id",
   async (data, thunkAPI) => {
     const { form, id } = data;
-    // console.log(form);
     try {
       const resp = await axios.put(
         `http://localhost:5000/api/movies/${id}`,

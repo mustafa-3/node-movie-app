@@ -2,7 +2,6 @@ const { Movie } = require("../../db/models");
 
 exports.getAllMovies = async (req, res) => {
   const movies = await Movie.findAll();
-  // console.log(movies);
   return res.status(200).json({
     success: true,
     message: "Movies retrieved successfully",
@@ -24,7 +23,6 @@ exports.getMovie = async (req, res) => {
     message: "Movie has been retrieved succesfully",
     data: movie,
   });
-  // console.log(data);
 };
 exports.createMovie = async (req, res) => {
   const { title, year, desc, detailDesc, imageUrl } = req.body;
@@ -62,7 +60,6 @@ exports.deleteMovie = async (req, res) => {
 };
 exports.updateMovie = async (req, res) => {
   const { id } = req.params;
-  // console.log(id);
   const { title, year, desc, detailDesc, imageUrl } = req.body;
   let movie = await Movie.findByPk(id);
   if (!movie) {
