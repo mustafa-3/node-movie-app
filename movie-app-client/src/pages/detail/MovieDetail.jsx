@@ -72,15 +72,13 @@ const MovieDetail = () => {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-          <Button onClick={handleDelete} size="small">
+          <Button type="button" onClick={handleDelete} size="small">
             Delete Movie
           </Button>
           <Button
-            onClick={
-              () =>
-                // navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
-                navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
-              // navigate(`/edit-movie/${id}`, { state: { edit: edit } })
+            type="button"
+            onClick={() =>
+              navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
             }
             size="small"
           >

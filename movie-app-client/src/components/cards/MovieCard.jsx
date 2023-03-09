@@ -3,13 +3,10 @@ import * as React from "react";
 //Hooks
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-//Redux
 import { useDispatch } from "react-redux";
+//Redux
 import { deleteMovie } from "../../services/movie/movieSlice";
 //3rd Party
-import axios from "axios";
-//Utils
-//Components
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -21,17 +18,13 @@ export default function MovieCard({ data }) {
   //Hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //Redux
   //States
   const [edit, setEdit] = useState({ isEdit: true });
-  //Effects
-  //Functions
+  const { title, desc, imageUrl, id } = data;
   //Handlers
   const handleDelete = async () => {
     dispatch(deleteMovie({ id: id }));
   };
-
-  const { title, desc, imageUrl, year, id } = data;
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -50,19 +43,21 @@ export default function MovieCard({ data }) {
         </Typography>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-        <Button onClick={handleDelete} size="small">
+        <Button type="button" onClick={handleDelete} size="small">
           Delete
         </Button>
-        <Button size="small" onClick={() => navigate(`/details/${id}`)}>
+        <Button
+          type="button"
+          size="small"
+          onClick={() => navigate(`/details/${id}`)}
+        >
           Details
         </Button>
         <Button
+          type="button"
           size="small"
-          onClick={
-            () =>
-              // navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
-              navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
-            // navigate(`/add-movie/${id}`, { state: { edit: edit } })
+          onClick={() =>
+            navigate(`/edit-movie/${id}`, { state: { edit: edit, id: id } })
           }
         >
           Edit

@@ -1,4 +1,9 @@
+//React
 import * as React from "react";
+//Hooks
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+//3rd Party
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,23 +19,22 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-
-const drawerWidth = 240;
-const navItems = ["Home", "Add-Movie", "Login", "Register"];
 
 function DrawerAppBar(props) {
+  //Hooks
+  const navigate = useNavigate();
+  //States
+  const drawerWidth = 240;
+  const navItems = ["Home", "Add-Movie", "Login", "Register"];
   const [edit, setEdit] = useState({ isEdit: false });
   const { window } = props;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  //Functions
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
-  const navigate = useNavigate();
-
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -48,9 +52,7 @@ function DrawerAppBar(props) {
       </List>
     </Box>
   );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  //Handlers
 
   return (
     <Box sx={{ display: "flex" }}>

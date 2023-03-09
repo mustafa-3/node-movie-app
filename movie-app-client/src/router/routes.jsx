@@ -5,7 +5,7 @@ const Login = React.lazy(() => import("../pages/login/Login"));
 const Register = React.lazy(() => import("../pages/register/Register"));
 const MovieDetail = React.lazy(() => import("../pages/detail/MovieDetail"));
 const AddMovie = React.lazy(() => import("../pages/addMovie/AddMovie"));
-const EditMovie = React.lazy(() => import("../pages/editMovie/EditMovie"));
+// const EditMovie = React.lazy(() => import("../pages/editMovie/EditMovie"));
 
 const roles = {
   public: ["Admin", "User"],

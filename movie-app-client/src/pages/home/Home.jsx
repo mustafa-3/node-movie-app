@@ -35,7 +35,7 @@ const Home = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        {moviesData?.data?.map((item, index) => {
+        {data?.map((item, index) => {
           return (
             <Grid key={index} xs={4}>
               <Item sx={{ display: "flex", justifyContent: "center" }}>
