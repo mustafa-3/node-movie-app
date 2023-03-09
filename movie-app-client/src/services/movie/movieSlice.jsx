@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toastErrorNotify, toastSuccessNotify } from "../../utils/ToastNotify";
 
 const initialState = {
   moviesData: [],
@@ -11,8 +12,12 @@ export const getAllMovies = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const resp = await axios.get(`http://localhost:5000/api/movies`);
-      return resp.data;
+      if (resp.status === 200) {
+        toastSuccessNotify(resp.data.message);
+        return resp.data;
+      }
     } catch (error) {
+      toastErrorNotify(error.response.data.message);
       return thunkAPI.rejectWithValue("Something went wrong");
     }
   }
@@ -24,8 +29,12 @@ export const getMovie = createAsyncThunk(
     const { id } = data;
     try {
       const resp = await axios.get(`http://localhost:5000/api/movies/${id}`);
-      return resp.data.data;
+      if (resp.status === 200) {
+        toastSuccessNotify(resp.data.message);
+        return resp.data.data;
+      }
     } catch (error) {
+      toastErrorNotify(error.response.data.message);
       return thunkAPI.rejectWithValue("Somethig went wrong");
     }
   }
@@ -36,8 +45,12 @@ export const createMovie = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const resp = await axios.post(`http://localhost:5000/api/movies`, data);
-      return resp.data;
+      if (resp.status === 200) {
+        toastSuccessNotify(resp.data.message);
+        return resp.data;
+      }
     } catch (error) {
+      toastErrorNotify(error.response.data.message);
       return thunkAPI.rejectWithValue("Something went wrong");
     }
   }
@@ -52,8 +65,12 @@ export const updateMovie = createAsyncThunk(
         `http://localhost:5000/api/movies/${id}`,
         form
       );
-      return resp.data;
+      if (resp.status === 200) {
+        toastSuccessNotify(resp.data.message);
+        return resp.data;
+      }
     } catch (error) {
+      toastErrorNotify(error.response.data.message);
       return thunkAPI.rejectWithValue("Something went wrong");
     }
   }
@@ -65,8 +82,12 @@ export const deleteMovie = createAsyncThunk(
     const { id } = data;
     try {
       const resp = await axios.delete(`http://localhost:5000/api/movies/${id}`);
-      return resp.data;
+      if (resp.status === 200) {
+        toastSuccessNotify(resp.data.message);
+        return resp.data;
+      }
     } catch (error) {
+      toastErrorNotify(error.response.data.message);
       return thunkAPI.rejectWithValue("Something went wrong");
     }
   }
@@ -82,6 +103,7 @@ const movieSlice = createSlice({
     },
     [getAllMovies.fulfilled]: (state, action) => {
       state.moviesData = action.payload;
+      // console.log(action.payload);
       state.loading = false;
     },
     [getAllMovies.rejected]: (state, action) => {
@@ -90,16 +112,17 @@ const movieSlice = createSlice({
     [getMovie.fulfilled]: (state, action) => {
       state.movieData = action.payload;
     },
-    // [createMovie.pending]: (state, action) => {
-    //   state.loading = true;
-    // },
-    // [createMovie.fulfilled]: (state, action) => {
-    //   state.createForm = action.payload;
-    //   state.loading = false;
-    // },
-    // [createMovie.rejected]: (state, action) => {
-    //   state.loading = false;
-    // },
+    [createMovie.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [createMovie.fulfilled]: (state, action) => {
+      state.moviesData = action.payload;
+      // console.log(action.payload);
+      state.loading = false;
+    },
+    [createMovie.rejected]: (state, action) => {
+      state.loading = false;
+    },
   },
 });
 

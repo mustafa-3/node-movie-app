@@ -20,8 +20,10 @@ const MovieDetail = () => {
   useEffect(() => {
     dispatch(getMovie({ id: id }));
   }, []);
-  console.log(movieData);
+
+  // console.log(movieData);
   const { detailDesc, title, year, imageUrl } = movieData;
+  // console.log(movieData);
 
   const navigate = useNavigate();
 

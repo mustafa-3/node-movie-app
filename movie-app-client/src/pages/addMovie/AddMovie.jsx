@@ -11,9 +11,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createMovie, updateMovie } from "../../services/movie/movieSlice";
 
 function Copyright(props) {
@@ -40,7 +38,7 @@ export default function AddMovie() {
   const dispatch = useDispatch();
   const { state } = useLocation();
   const { edit, id } = state;
-  const api = `http://localhost:5000/api/movies/${id}`;
+
   const [form, setForm] = useState({
     title: "",
     desc: "",
@@ -63,9 +61,10 @@ export default function AddMovie() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     dispatch(createMovie(form));
+    navigate("/");
   };
 
   const handleEdit = () => {
@@ -79,7 +78,6 @@ export default function AddMovie() {
         <CssBaseline />
         <Box
           sx={{
-            // marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -116,7 +114,7 @@ export default function AddMovie() {
               id="year"
               label="year"
               name="year"
-              type="text"
+              type="number"
               value={form.year}
               onChange={(e) => setForm({ ...form, year: e.target.value })}
             />

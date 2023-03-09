@@ -10,9 +10,6 @@ import { getAllMovies } from "../../services/movie/movieSlice";
 const Home = () => {
   const dispatch = useDispatch();
   const { moviesData } = useSelector((state) => state.movie);
-  // console.log(movieData);
- 
- 
   const { data } = moviesData;
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -25,14 +22,12 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllMovies());
-  }, []);
-
-
+  }, [dispatch]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        {data?.map((item, index) => {
+        {moviesData?.data?.map((item, index) => {
           return (
             <Grid key={index} xs={4}>
               <Item sx={{ display: "flex", justifyContent: "center" }}>
