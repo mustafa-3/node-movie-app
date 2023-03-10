@@ -4,7 +4,7 @@ import { toastErrorNotify, toastSuccessNotify } from "../../utils/ToastNotify";
 
 const initialState = {
   moviesData: [],
-  movieData: [],
+  movieData: {},
 };
 
 export const getAllMovies = createAsyncThunk(
@@ -27,10 +27,12 @@ export const getMovie = createAsyncThunk(
   "/api/movies/:id",
   async (data, thunkAPI) => {
     const { id } = data;
+
     try {
       const resp = await axios.get(`http://localhost:5000/api/movies/${id}`);
       if (resp.status === 200) {
         // toastSuccessNotify(resp.data.message);
+
         return resp.data.data;
       }
     } catch (error) {
@@ -47,9 +49,10 @@ export const createMovie = createAsyncThunk(
       const resp = await axios.post(`http://localhost:5000/api/movies`, data);
       if (resp.status === 200) {
         // toastSuccessNotify(resp.data.message);
-        return resp.data;
+        return resp.data.data;
       }
     } catch (error) {
+      console.log(error);
       toastErrorNotify(error.response.data.message);
       return thunkAPI.rejectWithValue("Something went wrong");
     }
@@ -79,11 +82,13 @@ export const updateMovie = createAsyncThunk(
 export const deleteMovie = createAsyncThunk(
   "api/movies/:id",
   async (data, thunkAPI) => {
-    const { id } = data;
+    const { id, refreshPage } = data;
+    console.log(refreshPage);
     try {
       const resp = await axios.delete(`http://localhost:5000/api/movies/${id}`);
       if (resp.status === 200) {
         // toastSuccessNotify(resp.data.message);
+        refreshPage()
         return resp.data;
       }
     } catch (error) {
@@ -117,7 +122,6 @@ const movieSlice = createSlice({
     },
     [createMovie.fulfilled]: (state, action) => {
       state.moviesData = action.payload;
-      // console.log(action.payload);
       state.loading = false;
     },
     [createMovie.rejected]: (state, action) => {

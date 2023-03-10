@@ -22,7 +22,7 @@ const Home = () => {
   //Effects
   useEffect(() => {
     dispatch(getAllMovies());
-  }, [dispatch]);
+  }, []);
 
   //Functions
   const Item = styled(Paper)(({ theme }) => ({
@@ -33,10 +33,12 @@ const Home = () => {
     color: theme.palette.text.secondary,
   }));
 
+  console.log(moviesData.data);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        {data?.map((item, index) => {
+        {moviesData?.data?.map((item, index) => {
           return (
             <Grid key={index} xs={4}>
               <Item sx={{ display: "flex", justifyContent: "center" }}>

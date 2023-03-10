@@ -40,19 +40,19 @@ export default function AddMovie() {
     // imageUrl: "",
     // id: id,
   });
-  
+
   //Effects
-  useEffect(() => {
-    dispatch(getMovie({ id: id }));
-    console.log(movieData);
-    setForm({
-      title: movieData.title,
-      desc: movieData.desc,
-      detailDesc: movieData.detailDesc,
-      year: movieData.year,
-      imageUrl: movieData.imageUrl,
-    });
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getMovie({ id: id }));
+  //   console.log(movieData);
+  //   setForm({
+  //     title: movieData.title,
+  //     desc: movieData.desc,
+  //     detailDesc: movieData.detailDesc,
+  //     year: movieData.year,
+  //     imageUrl: movieData.imageUrl,
+  //   });
+  // }, []);
 
   //Functions
   const theme = createTheme();
