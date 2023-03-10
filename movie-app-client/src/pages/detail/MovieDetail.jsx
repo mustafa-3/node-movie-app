@@ -33,7 +33,7 @@ const MovieDetail = () => {
   useEffect(() => {
     dispatch(getMovie({ id: id }));
   }, []);
-  
+
   //Handlers
   const handleDelete = async () => {
     dispatch(deleteMovie({ id: id }));

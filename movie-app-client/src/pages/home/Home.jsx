@@ -18,11 +18,12 @@ const Home = () => {
   //Redux
   const { moviesData } = useSelector((state) => state.movie);
   const { data } = moviesData;
+  console.log(data);
 
   //Effects
   useEffect(() => {
     dispatch(getAllMovies());
-  }, []);
+  }, [data?.length]);
 
   //Functions
   const Item = styled(Paper)(({ theme }) => ({
