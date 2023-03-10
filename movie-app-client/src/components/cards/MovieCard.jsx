@@ -23,13 +23,14 @@ export default function MovieCard({ data }) {
   const [edit, setEdit] = useState({ isEdit: true });
   const { title, desc, imageUrl, id } = data;
 
-  const refreshPage = () => {
-    window.location.reload(true);
-  };
+  // const refreshPage = () => {
+  //   window.location.reload(true);
+  // };
 
   //Handlers
   const handleDelete = async () => {
-    dispatch(deleteMovie({ id: id, refreshPage: refreshPage }));
+    // dispatch(deleteMovie({ id: id, refreshPage: refreshPage }));
+    dispatch(deleteMovie({ id: id }));
   };
 
   return (

@@ -38,7 +38,7 @@ export const getMovie = createAsyncThunk(
         return resp.data.data;
       }
     } catch (error) {
-        toastErrorNotify(error.message);
+      toastErrorNotify(error.message);
       return thunkAPI.rejectWithValue("Somethig went wrong");
     }
   }
@@ -55,7 +55,7 @@ export const createMovie = createAsyncThunk(
       }
     } catch (error) {
       console.log(error);
-        toastErrorNotify(error.message);
+      toastErrorNotify(error.message);
       return thunkAPI.rejectWithValue("Something went wrong");
     }
   }
@@ -75,7 +75,7 @@ export const updateMovie = createAsyncThunk(
         return resp.data;
       }
     } catch (error) {
-        toastErrorNotify(error.message);
+      toastErrorNotify(error.message);
       return thunkAPI.rejectWithValue("Something went wrong");
     }
   }
@@ -84,8 +84,9 @@ export const updateMovie = createAsyncThunk(
 export const deleteMovie = createAsyncThunk(
   "api/movies/:id",
   async (data, thunkAPI) => {
-    const { id, refreshPage } = data;
-    console.log(refreshPage);
+    // const { id, refreshPage } = data;
+    const { id } = data;
+
     try {
       const resp = await axios.delete(`http://localhost:5000/api/movies/${id}`);
       if (resp.status === 200) {
@@ -94,7 +95,7 @@ export const deleteMovie = createAsyncThunk(
         return resp.data;
       }
     } catch (error) {
-        toastErrorNotify(error.message);
+      toastErrorNotify(error.message);
       return thunkAPI.rejectWithValue("Something went wrong");
     }
   }
