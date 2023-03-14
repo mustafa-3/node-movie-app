@@ -2,7 +2,7 @@
 import * as React from "react";
 //Hooks
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 //Redux
 import {
@@ -28,9 +28,6 @@ export default function AddMovie() {
   const { edit, id } = state;
   const navigate = useNavigate();
 
-  //Redux
-  const { movieData } = useSelector((state) => state.movie);
-
   //States
   const [form, setForm] = useState({
     title: "",
@@ -44,20 +41,18 @@ export default function AddMovie() {
   //Effects
   useEffect(() => {
     async function fetchData() {
-      const response = await dispatch(getMovie({ id: id }));
-      const movieData = response.payload
-      console.log(movieData);
+      let movieData = await dispatch(getMovie({ id: id }));
+      movieData = movieData.payload;
       setForm({
         title: movieData.title,
         desc: movieData.desc,
         detailDesc: movieData.detailDesc,
         year: movieData.year,
         imageUrl: movieData.imageUrl,
-    });
+      });
     }
-    fetchData();
+    edit.isEdit && fetchData();
   }, []);
-
 
   //Functions
   const theme = createTheme();
@@ -73,17 +68,6 @@ export default function AddMovie() {
     dispatch(updateMovie({ form: form, id: id }));
     navigate("/");
   };
-
-  // const getData = () => {
-  //   fetch(api)
-  //     .then((res) => res.json())
-  //     .then((data) => setForm(data.data))
-  //     .catch((err) => console.log(err));
-  // };
-
-  // useEffect(() => {
-  //   edit.isEdit && getData();
-  // }, []);
 
   return (
     <ThemeProvider theme={theme}>
