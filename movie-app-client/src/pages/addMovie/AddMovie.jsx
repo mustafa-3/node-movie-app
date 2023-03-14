@@ -35,7 +35,6 @@ export default function AddMovie() {
     detailDesc: "",
     year: "",
     imageUrl: "",
-    id: id,
   });
 
   //Effects
