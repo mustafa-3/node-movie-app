@@ -2,7 +2,6 @@
 import * as React from "react";
 //Hooks
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 //Redux
 import { deleteMovie } from "../../services/movie/movieSlice";
@@ -20,7 +19,7 @@ export default function MovieCard({ data }) {
   const navigate = useNavigate();
 
   //States
-  const [edit, setEdit] = useState({ isEdit: true });
+  const edit = { isEdit: true };
   const { title, desc, imageUrl, id } = data;
 
   // const refreshPage = () => {

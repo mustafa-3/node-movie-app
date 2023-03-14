@@ -1,7 +1,7 @@
 //React
 import React from "react";
 //Hooks
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //Redux
@@ -26,7 +26,8 @@ const MovieDetail = () => {
   const { detailDesc, title, year, imageUrl } = movieData;
 
   //States
-  const [edit, setEdit] = useState({ isEdit: true });
+  // const [edit, setEdit] = useState({ isEdit: true });
+  const edit = { isEdit: true };
 
   //Effects
   useEffect(() => {

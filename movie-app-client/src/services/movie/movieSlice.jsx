@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { toastErrorNotify, toastSuccessNotify } from "../../utils/ToastNotify";
+import { toastErrorNotify } from "../../utils/ToastNotify";
 
 const initialState = {
   moviesData: [],
