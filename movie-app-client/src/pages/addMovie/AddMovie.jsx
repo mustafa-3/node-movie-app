@@ -33,26 +33,31 @@ export default function AddMovie() {
 
   //States
   const [form, setForm] = useState({
-    // title: "",
-    // desc: "",
-    // detailDesc: "",
-    // year: "",
-    // imageUrl: "",
-    // id: id,
+    title: "",
+    desc: "",
+    detailDesc: "",
+    year: "",
+    imageUrl: "",
+    id: id,
   });
 
   //Effects
-  // useEffect(() => {
-  //   dispatch(getMovie({ id: id }));
-  //   console.log(movieData);
-  //   setForm({
-  //     title: movieData.title,
-  //     desc: movieData.desc,
-  //     detailDesc: movieData.detailDesc,
-  //     year: movieData.year,
-  //     imageUrl: movieData.imageUrl,
-  //   });
-  // }, []);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await dispatch(getMovie({ id: id }));
+      const movieData = response.payload
+      console.log(movieData);
+      setForm({
+        title: movieData.title,
+        desc: movieData.desc,
+        detailDesc: movieData.detailDesc,
+        year: movieData.year,
+        imageUrl: movieData.imageUrl,
+    });
+    }
+    fetchData();
+  }, []);
+
 
   //Functions
   const theme = createTheme();

@@ -18,7 +18,7 @@ const Home = () => {
   //Redux
   const { moviesData } = useSelector((state) => state.movie);
   const { data } = moviesData;
-  console.log(data);
+  // console.log(data);
 
   //Effects
   useEffect(() => {
@@ -33,8 +33,6 @@ const Home = () => {
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
-
-  console.log(moviesData.data);
 
   return (
     <Box sx={{ flexGrow: 1 }}>

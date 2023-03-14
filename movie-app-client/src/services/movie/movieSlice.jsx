@@ -34,7 +34,7 @@ export const getMovie = createAsyncThunk(
       const resp = await axios.get(`http://localhost:5000/api/movies/${id}`);
       if (resp.status === 200) {
         // toastSuccessNotify(resp.data.message);
-        console.log(resp.data.data);
+        // console.log(resp.data.data);
         return resp.data.data;
       }
     } catch (error) {
@@ -126,6 +126,7 @@ const movieSlice = createSlice({
     [createMovie.fulfilled]: (state, action) => {
       state.moviesData = action.payload;
       state.loading = false;
+      // console.log(action.payload);
     },
     [createMovie.rejected]: (state, action) => {
       state.loading = false;
