@@ -8,10 +8,10 @@ import Login from "./pages/login/Login";
 import Navbar from "./components/navbar/Navbar";
 
 const App = () => {
-  const user = true;
+  const reftoken = true;
 
   const PrivateRouter = ({ children }) => {
-    return user ? children : <Navigate to="/register" />;
+    return reftoken ? children : <Navigate to="/login" />;
   };
 
   function PublicRouter({ children }) {
