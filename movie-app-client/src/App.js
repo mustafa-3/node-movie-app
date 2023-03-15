@@ -5,6 +5,7 @@ import "./App.css";
 import MainLayout from "./layout/MainLayout";
 import Login from "./pages/login/Login";
 // import routes from "./router/routes";
+import Navbar from "./components/navbar/Navbar";
 
 const App = () => {
   const user = true;
@@ -25,9 +26,8 @@ const App = () => {
           name="Login"
           element={
             <PublicRouter>
-              <MainLayout>
-                <Login />
-              </MainLayout>
+              <Navbar />
+              <Login />
             </PublicRouter>
           }
         />
