@@ -104,14 +104,17 @@ export const deleteMovie = createAsyncThunk(
 const movieSlice = createSlice({
   name: "movie",
   initialState,
-  reducers: {},
+  reducers: {
+    // clearMovie: (state) => {
+    //   state.moviesData = [];
+    // },
+  },
   extraReducers: {
     [getAllMovies.pending]: (state, action) => {
       state.loading = true;
     },
     [getAllMovies.fulfilled]: (state, action) => {
       state.moviesData = action.payload;
-      // console.log(action.payload);
       state.loading = false;
     },
     [getAllMovies.rejected]: (state, action) => {
@@ -126,7 +129,6 @@ const movieSlice = createSlice({
     [createMovie.fulfilled]: (state, action) => {
       state.moviesData = action.payload;
       state.loading = false;
-      // console.log(action.payload);
     },
     [createMovie.rejected]: (state, action) => {
       state.loading = false;
@@ -139,5 +141,7 @@ const movieSlice = createSlice({
     },
   },
 });
+
+// export const { clearMovie } = movieSlice.actions;
 
 export default movieSlice.reducer;

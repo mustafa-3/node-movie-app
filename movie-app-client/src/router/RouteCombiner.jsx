@@ -24,7 +24,7 @@ const RouteCombiner = () => {
     //     case "Admin":
     //       return <Navigate to="/home" replace />;
     //     case "User":
-    //       return <Navigate to="/login" replace />;
+    //       return <Navigate to="/home" replace />;
     //     default:
     //       return <Navigate to="/" replace />;
     //   }
