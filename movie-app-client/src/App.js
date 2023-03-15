@@ -4,7 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import MainLayout from "./layout/MainLayout";
 import Login from "./pages/login/Login";
-import routes from "./router/routes";
+// import routes from "./router/routes";
 
 const App = () => {
   const user = true;
@@ -24,17 +24,17 @@ const App = () => {
           path="/login"
           name="Login"
           element={
-            <PrivateRouter>
+            <PublicRouter>
               <Login />
-            </PrivateRouter>
+            </PublicRouter>
           }
         />
         <Route
           path={"*"}
           element={
-            <PublicRouter>
+            <PrivateRouter>
               <MainLayout />
-            </PublicRouter>
+            </PrivateRouter>
           }
         />
         {/* {routes.map((route) => {

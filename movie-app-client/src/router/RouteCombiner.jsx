@@ -1,5 +1,5 @@
-import React, { Suspense, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 import routes from "./routes";
 
 const RouteCombiner = () => {
@@ -9,20 +9,20 @@ const RouteCombiner = () => {
 
   return (
     <>
-    <Suspense>
-      <Routes>
-        {routes.map((route, index) => {
-          return (
-            <Route
-              key={index}
-              path={route.path}
-              exact={route.exact}
-              name={route.name}
-              element={componentAuthorizations(route)}
-            />
-          );
-        })}
-      </Routes>
+      <Suspense>
+        <Routes>
+          {routes.map((route, index) => {
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                exact={route.exact}
+                name={route.name}
+                element={componentAuthorizations(route)}
+              />
+            );
+          })}
+        </Routes>
       </Suspense>
     </>
   );
