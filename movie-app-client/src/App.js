@@ -25,7 +25,9 @@ const App = () => {
           name="Login"
           element={
             <PublicRouter>
-              <Login />
+              <MainLayout>
+                <Login />
+              </MainLayout>
             </PublicRouter>
           }
         />
