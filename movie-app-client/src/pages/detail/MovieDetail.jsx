@@ -22,8 +22,8 @@ const MovieDetail = () => {
   const navigate = useNavigate();
 
   //Redux
-  const { movieData } = useSelector((state) => state.movie);
-  const { detailDesc, title, year, imageUrl } = movieData;
+  const { movie } = useSelector((state) => state.movie);
+  const { detailDesc, title, year, imageUrl } = movie;
 
   //States
   // const [edit, setEdit] = useState({ isEdit: true });

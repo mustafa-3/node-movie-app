@@ -3,8 +3,9 @@ import axios from "axios";
 import { toastErrorNotify } from "../../utils/ToastNotify";
 
 const initialState = {
-  moviesData: [],
-  movieData: {},
+  movies: [],
+  movie: {},
+  loading: false,
 };
 
 export const getAllMovies = createAsyncThunk(
@@ -106,7 +107,7 @@ const movieSlice = createSlice({
   initialState,
   reducers: {
     // clearMovie: (state) => {
-    //   state.moviesData = [];
+    //   state.movies = [];
     // },
   },
   extraReducers: {
@@ -114,30 +115,30 @@ const movieSlice = createSlice({
       state.loading = true;
     },
     [getAllMovies.fulfilled]: (state, action) => {
-      state.moviesData = action.payload;
+      state.movies = action.payload;
       state.loading = false;
     },
     [getAllMovies.rejected]: (state, action) => {
       state.loading = false;
     },
     [getMovie.fulfilled]: (state, action) => {
-      state.movieData = action.payload;
+      state.movie = action.payload;
     },
     [createMovie.pending]: (state, action) => {
       state.loading = true;
     },
     [createMovie.fulfilled]: (state, action) => {
-      state.moviesData = action.payload;
+      state.movies = action.payload;
       state.loading = false;
     },
     [createMovie.rejected]: (state, action) => {
       state.loading = false;
     },
     [deleteMovie.fulfilled]: (state, action) => {
-      state.moviesData = action.payload;
+      state.movies = action.payload;
     },
     [updateMovie.fulfilled]: (state, action) => {
-      state.movieData = action.payload;
+      state.movie = action.payload;
     },
   },
 });
