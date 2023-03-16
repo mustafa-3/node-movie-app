@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toastErrorNotify } from "../../utils/ToastNotify";
 
@@ -141,7 +141,13 @@ const movieSlice = createSlice({
       state.loading = false;
     },
     [updateMovie.fulfilled]: (state, action) => {
-      state.movie = action.payload;
+      const data = (current(state.movies.data));
+      state.movies = data.map(movie => {
+        if (movie.id === action.payload.id) {
+          movie = action.payload;
+        }
+        return movie;
+      });
     },
   },
 });
