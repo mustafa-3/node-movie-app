@@ -93,7 +93,7 @@ export const deleteMovie = createAsyncThunk(
       if (resp.status === 200) {
         // toastSuccessNotify(resp.data.message);
         // refreshPage()
-        return resp.data;
+        return resp.data.data;
       }
     } catch (error) {
       toastErrorNotify(error.message);
@@ -135,7 +135,10 @@ const movieSlice = createSlice({
       state.loading = false;
     },
     [deleteMovie.fulfilled]: (state, action) => {
-      state.movies = action.payload;
+      state.movies = state.movies.data.filter(
+        (x) => x.id !== parseInt(action.payload)
+      );
+      state.loading = false;
     },
     [updateMovie.fulfilled]: (state, action) => {
       state.movie = action.payload;
